@@ -29,4 +29,8 @@ export class PersonService {
   getPage(url_link:string): Observable<any> {
     return this.http.get<any>(url_link)
   }
+
+  getPersonById(id: number): Observable<any> {
+    return this.http.get<any>(this.URL_API + '/' + id)
+  }
 }
