@@ -21,7 +21,6 @@ export class PersonService {
 
   constructor(private http: HttpClient) {}
 
-  /** GET heroes from the server */
   getPerson(text:string): Observable<any> {
     return this.http.get<any>(this.URL_API + '?valueSearch=' + text)
   }
@@ -32,5 +31,9 @@ export class PersonService {
 
   getPersonById(id: number): Observable<any> {
     return this.http.get<any>(this.URL_API + '/' + id)
+  }
+
+  delete(id: number): Observable<any> {
+    return this.http.delete<any>(this.URL_API + '/' + id)
   }
 }

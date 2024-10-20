@@ -59,4 +59,13 @@ export class PersonComponent {
         this.personFilterList = response.data;
       });
   }
+
+  delete(index:number, id:number, name:string){
+    if(confirm("Estás seguro de borrar el contacto y todos los registros de " + name)) {
+      this.personService.delete(id)
+        .subscribe((response) => {
+          this.personFilterList.splice(index, 1);
+        });
+    }
+  }
 }
