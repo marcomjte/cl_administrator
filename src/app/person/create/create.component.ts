@@ -19,7 +19,6 @@ import { Person } from '../person';
 export class CreatePersonComponent {
   personService = inject(PersonService);
   person: Person | undefined;
-  person_v = { name: "" };
 
   form = new FormGroup({
     name: new FormControl('', Validators.required),
