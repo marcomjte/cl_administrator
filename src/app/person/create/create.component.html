@@ -21,7 +21,7 @@
                 <div class="row g-3">
                   <div class="col-sm-6">
                     <label for="name" class="form-label">Nombre*</label>
-                    <input [class.is-invalid]="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)" type="text" class="form-control" id="name" placeholder="Ej: Román Gonzales" value="" formControlName="name">
+                    <input [class.is-invalid]="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)" type="text" class="form-control" id="name" placeholder="Ej: Román Gonzales" formControlName="name">
                     <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)">
                         <span class="text-danger" *ngIf="form.controls.name.errors?.['required']">
                           El nombre es requerido
@@ -31,7 +31,7 @@
 
                   <div class="col-sm-6">
                     <label for="work_company" class="form-label">Empresa</label>
-                    <input type="text" class="form-control" id="work_company" placeholder="" value="" formControlName="work_company">
+                    <input type="text" class="form-control" id="work_company" placeholder="" formControlName="work_company">
                   </div>
 
                   <div class="col-12">
@@ -117,7 +117,7 @@
                     
                       <label class="col-4 form-label">Dirección {{ indexAD + 1 }}:</label>
                       <div class="input-group has-validation">
-                        <input [class.is-invalid]="getValidity(indexAD, 'addresses')" type="text" class="form-control" placeholder="" value="" required="" formControlName="{{ indexAD }}">
+                        <input [class.is-invalid]="getValidity(indexAD, 'addresses')" type="text" class="form-control" placeholder="" formControlName="{{ indexAD }}">
                         <button type="button" class="btn btn-outline-secondary" title="Quitar" (click)="removeAddress(indexAD)">Quitar</button>
                       </div>
                       <span class="text-danger" *ngIf="getValidity(indexAD, 'addresses')">
