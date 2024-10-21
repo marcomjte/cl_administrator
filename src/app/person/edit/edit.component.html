@@ -1,0 +1,154 @@
+<section class="mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-sm-10">
+      
+      <h2 class="text-center"><strong> Editar contacto </strong></h2>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10">
+              <h3>Datos generales</h3>
+            </div>
+            <div class="col-md-2">
+              <a class="btn btn-secondary" [routerLink]="['/']">Regresar</a>
+            </div>
+          </div>
+
+          <form class="needs-validation" [formGroup]="form" (submit)="submitApplication()">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row g-3">
+                  <div class="col-sm-6">
+                    <label for="name" class="form-label">Nombre*</label>
+                    <input [class.is-invalid]="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)" type="text" class="form-control" id="name" value="{{ person?.name }}" placeholder="Ej: Román Gonzales" formControlName="name">
+                    <div *ngIf="form.controls.name.invalid && (form.controls.name.dirty || form.controls.name.touched)">
+                        <span class="text-danger" *ngIf="form.controls.name.errors?.['required']">
+                          El nombre es requerido
+                        </span>
+                    </div>
+                  </div>
+
+                  <div class="col-sm-6">
+                    <label for="work_company" class="form-label">Empresa</label>
+                    <input type="text" class="form-control" id="work_company" placeholder="" formControlName="work_company">
+                  </div>
+
+                  <div class="col-12">
+                    <label for="url_web_page" class="form-label">Sitio web</label>
+                    <div class="input-group has-validation">
+                      <input type="text" class="form-control" id="url_web_page" placeholder="Sitio web" formControlName="url_web_page">
+                    </div>
+                  </div>
+
+                  <div class="col-12">
+                    <label for="note" class="form-label">Notas</label>
+                    <div class="input-group has-validation">
+                      <input type="text" class="form-control" id="note" placeholder="Notas" formControlName="note">
+                    </div>
+                  </div>
+                </div>
+
+                <hr class="my-4">
+              </div>
+            </div>
+
+            <mat-tab-group>
+
+              <mat-tab label="Teléfonos">
+                <hr>
+                <div class="row g-3">
+                  <div formArrayName="phones">
+                    <div class="mt-3" *ngFor="let item of form.controls.phones.controls; let indexPH = index">
+
+                      <label class="form-label">Teléfono {{ indexPH + 1 }} (10 Digitos): </label>
+                      <div class="input-group has-validation">
+                        <input [class.is-invalid]="getValidity(indexPH, 'phones')" class="form-control" type="text" formControlName="{{ indexPH }}">
+                        <button type="button" class="btn btn-outline-secondary" title="Quitar" (click)="removePhone(indexPH)">Quitar</button>
+                      </div>
+                      <span class="text-danger" *ngIf="getValidity(indexPH, 'phones')">
+                          El campo no puede estár vacío o con el formato incorrecto.
+                      </span>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-12 text-center">
+                    <button type="button" class="btn btn-outline-secondary" (click)="addPhone()">
+                      Agregar teléfono +
+                    </button>
+                  </div>
+                </div>
+              </mat-tab>
+
+              <mat-tab label="Correos">
+                <hr>
+                <div class="row g-3">
+                  <div formArrayName="emails">
+                    <div class="mt-3" *ngFor="let item of form.controls.emails.controls; let indexEM = index">
+
+                      <label class="form-label">Correo {{ indexEM + 1 }}</label>
+                      <div class="input-group has-validation">
+                        <input [class.is-invalid]="getValidity(indexEM, 'emails')" class="form-control" type="email" formControlName="{{ indexEM }}">
+                        <button type="button" class="btn btn-outline-secondary" title="Quitar" (click)="removeEmail(indexEM)">Quitar</button>
+                      </div>
+                      <span class="text-danger" *ngIf="getValidity(indexEM, 'emails')">
+                          El campo no puede estár vacío o con el formato incorrecto.
+                      </span>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-12 text-center">
+                    <button type="button" class="btn btn-outline-secondary" (click)="addEmail()">
+                      Agregar correo +
+                    </button>
+                  </div>
+                </div>
+              </mat-tab>
+
+              <mat-tab label="Direcciones">
+                <hr>
+                <div class="row g-3">
+                  <div formArrayName="addresses">
+                    <div class="mt-3" *ngFor="let item of form.controls.addresses.controls; let indexAD = index">
+                    
+                      <label class="col-4 form-label">Dirección {{ indexAD + 1 }}:</label>
+                      <div class="input-group has-validation">
+                        <input [class.is-invalid]="getValidity(indexAD, 'addresses')" type="text" class="form-control" placeholder="" formControlName="{{ indexAD }}">
+                        <button type="button" class="btn btn-outline-secondary" title="Quitar" (click)="removeAddress(indexAD)">Quitar</button>
+                      </div>
+                      <span class="text-danger" *ngIf="getValidity(indexAD, 'addresses')">
+                          El campo no puede estár vacío o con el formato incorrecto.
+                      </span>
+                      
+                    </div>
+                  </div>
+                </div>
+                <div class="row mt-5">
+                  <div class="col-12 text-center">
+                    <button type="button" class="btn btn-outline-secondary" (click)="addAddress()">
+                      Agregar dirección +
+                    </button>
+                  </div>
+                </div>
+              </mat-tab>
+
+            </mat-tab-group>
+            <div class="row mt-5">
+              <div class="col-12 text-center">
+                <button class="w-100 btn btn-primary btn-lg" type="submit" [disabled]="!form.valid">Guardar</button>
+              </div>
+            </div>
+
+          </form>
+
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>

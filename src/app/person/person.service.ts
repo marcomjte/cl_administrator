@@ -33,6 +33,10 @@ export class PersonService {
     return this.http.post<any>(this.URL_API, {name:name,work_company:work_company, url_web_page:url_web_page, note:note, phones:phones, emails:emails, addresses:addresses}, httpOptions);
   }
 
+  update(id: number, name: string, work_company: string, url_web_page: string, note: string, phones:any, emails:any, addresses:any) {
+    return this.http.put<any>(this.URL_API + '/' + id, {name:name,work_company:work_company, url_web_page:url_web_page, note:note, phones:phones, emails:emails, addresses:addresses}, httpOptions);
+  }
+
   getPersonById(id: number): Observable<any> {
     return this.http.get<any>(this.URL_API + '/' + id)
   }

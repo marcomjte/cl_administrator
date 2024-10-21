@@ -53,7 +53,7 @@
                   <a class="btn btn-outline-danger" (click)="delete(index, person.id, person.name)">Borrar</a>
                 </td>
                 <td>
-                  <a class="btn btn-outline-primary" href="#">Editar</a>
+                  <a class="btn btn-outline-primary" [routerLink]="['/edit', person.id]">Editar</a>
                 <td>
                 <td>
                   <a class="btn btn-outline-info" [routerLink]="['/details', person.id]">Ver</a>
