@@ -2,9 +2,11 @@ import {Component, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {ActivatedRoute, RouterLink} from '@angular/router';
 
+import {MatTabsModule} from '@angular/material/tabs';
+import { ToastrService } from 'ngx-toastr';
+
 import {PersonService} from '../person.service';
 import {Person} from '../person';
-import {MatTabsModule} from '@angular/material/tabs';
 
 @Component({
   selector: 'app-details',
@@ -20,10 +22,14 @@ export class DetailsPersonComponent {
   personService = inject(PersonService);
   person: Person | undefined;
 
-  constructor() {
+  constructor(private toastr: ToastrService) {
     const personId = parseInt(this.route.snapshot.params['id'], 10);
     this.personService.getPersonById(personId).subscribe((response) => {
       this.person = response.data;
+    },(error) => {
+      this.toastr.warning(error, 'Ocurrió un problema', {
+        timeOut: 4000,
+      });
     });
   }
 }

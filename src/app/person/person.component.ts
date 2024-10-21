@@ -2,6 +2,8 @@ import {Component, Input, inject} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {RouterLink} from '@angular/router';
 
+import { ToastrService } from 'ngx-toastr';
+
 import {PersonService} from './person.service';
 import {Person} from './person';
 
@@ -31,7 +33,7 @@ export class PersonComponent {
   };
   valueSearch : string = '';
 
-  constructor() {
+  constructor(private toastr: ToastrService) {
     this.getAll();
   }
 
@@ -49,6 +51,10 @@ export class PersonComponent {
       .subscribe((response) => {
         this.dataResult = response;
         this.personFilterList = response.data;
+      },(error) => {
+        this.toastr.warning(error, 'Ocurrió un problema', {
+          timeOut: 4000,
+        });
       });
   }
 
@@ -57,6 +63,10 @@ export class PersonComponent {
       .subscribe((response) => {
         this.dataResult = response;
         this.personFilterList = response.data;
+      },(error) => {
+        this.toastr.warning(error, 'Ocurrió un problema', {
+          timeOut: 4000,
+        });
       });
   }
 
@@ -65,6 +75,10 @@ export class PersonComponent {
       this.personService.delete(id)
         .subscribe((response) => {
           this.personFilterList.splice(index, 1);
+        },(error) => {
+          this.toastr.warning(error, 'Ocurrió un problema', {
+            timeOut: 4000,
+          });
         });
     }
   }
