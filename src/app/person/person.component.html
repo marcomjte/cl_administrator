@@ -1,0 +1,78 @@
+<section class="mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-sm-10">
+
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-6">
+              <a class="btn btn-outline btn-rounded btn-primary" [routerLink]="['/create']"><i class="fa fa-plus"></i> Nuevo contacto </a>
+            </div>
+            <div class="col-md-6">
+              <div class="input-group">
+                <input class="form-control" type="text" placeholder="Buscar contacto" (keyup)="search($event)">
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <hr>
+
+      <div class="row">
+        <div class="col-md-6">
+          {{ dataResult.meta.per_page }} Resultados por página / {{ dataResult.meta.total }} resultados en total
+        </div>
+        <div class="col-md-3"></div>
+        <div class="col-md-3">
+          Mostrando de la {{ dataResult.meta.from }} a la {{ dataResult.meta.to }}
+        </div>
+      </div>
+      <hr>
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-striped table-sm">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Fecha de cumpleaños</th>
+                <th>Página web</th>
+                <th>Empresa</th>
+                <th></th>
+                <th></th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let person of personFilterList; index as index">
+                <td>{{ person.name }}</td>
+                <td>{{ person.date_of_birth }}</td>
+                <td>{{ person.url_web_page }}</td>
+                <td>{{ person.work_company }}</td>
+                <td>
+                  <a class="btn btn-outline-danger" (click)="delete(index, person.id, person.name)">Borrar</a>
+                </td>
+                <td>
+                  <a class="btn btn-outline-primary" [routerLink]="['/edit', person.id]">Editar</a>
+                <td>
+                <td>
+                  <a class="btn btn-outline-info" [routerLink]="['/details', person.id]">Ver</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-1">
+          <a href="#" (click)="getPage(dataResult.links.prev)" *ngIf="dataResult.links.prev">Anterior</a>
+        </div>
+        <div class="col-md-1">
+          <a href="#" (click)="getPage(dataResult.links.next)" *ngIf="dataResult.links.next">Siguiente</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

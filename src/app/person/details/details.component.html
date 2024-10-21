@@ -1,0 +1,80 @@
+<section class="mt-5 mb-5">
+  <div class="row justify-content-center">
+    <div class="col-sm-10">
+      
+      <h2 class="text-center"><strong> {{ person?.name }} </strong></h2>
+
+      <div class="card">
+        <div class="card-body">
+          <div class="row">
+            <div class="col-md-10">
+              <h3>Datos generales</h3>
+            </div>
+            <div class="col-md-2">
+              <a class="btn btn-secondary" [routerLink]="['/']">Regresar</a>
+            </div>
+          </div>
+
+          <div class="row g-3">
+            <div class="col-sm-6">
+              <label class="form-label">Nombre</label>
+              <p>{{ person?.name }}</p>
+            </div>
+
+            <div class="col-sm-6">
+              <label class="form-label">Empresa</label>
+              <p>{{ person?.work_company }}</p>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Sitio web</label>
+              <p>{{ person?.url_web_page }}</p>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Notas</label>
+              <p>{{ person?.note }}</p>
+            </div>
+            <hr>
+          </div>
+
+          <mat-tab-group>
+
+            <mat-tab label="Teléfonos">
+              <hr>
+              <div class="row g-3">
+                <div *ngFor="let phone of person?.phones; index as index" class="col-12">
+                  <label class="form-label">Teléfono {{ index + 1 }}</label>
+                  <p>{{ phone.phone_number }}</p>
+                </div>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="Correos">
+              <hr>
+              <div class="row g-3">
+                <div *ngFor="let email of person?.emails; index as index" class="col-12">
+                  <label class="form-label">Correo {{ index + 1 }}</label>
+                  <p>{{ email.email }}</p>
+                </div>
+              </div>
+            </mat-tab>
+
+            <mat-tab label="Direcciones">
+              <hr>
+              <div class="row g-3">
+                <div *ngFor="let address of person?.addresses; index as index" class="col-12">
+                  <label class="form-label">Dirección {{ index + 1 }}</label>
+                  <p>{{ address.address }}</p>
+                </div>
+              </div>
+            </mat-tab>
+
+          </mat-tab-group>
+
+        </div>
+      </div>
+      
+    </div>
+  </div>
+</section>
